@@ -9,7 +9,7 @@ pipeline {
         VERSION = '1.0.0'
         DEPLOY_ENV = 'production'
         CREDENTIALS_ID = 'my-docker-creds'
-        PATH = 'org/example/TestExampleAPI'
+//         PATH = 'org/example/TestExampleAPI'
     }
     options {
         timeout(time: 1, unit: 'HOURS')  // 设置超时时间
@@ -21,7 +21,7 @@ pipeline {
                 echo "开始执行流水线构建"
                 echo "当前版本: ${VERSION}"
                 echo "部署环境: ${DEPLOY_ENV}"
-                echo "执行测试路径： ${PATH}"
+//                 echo "执行测试路径： ${PATH}"
             }
         }
 
