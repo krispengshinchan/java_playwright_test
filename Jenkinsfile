@@ -89,17 +89,23 @@ pipeline {
     }
     post {
         always {
-            echo "清理工作空间..."
+            echo "always清理工作空间..."
 //             deleteDir() // 清理工作目录
         }
         success {
+            script{
+                currentBuild.description = "\n success"
+            }
 //             slackSend channel: '#ci-cd',
-                     message: "构建成功: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
+//                      message: "构建成功: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
         }
         failure {
+            script{
+                    currentBuild.description = "\n failure"
+            }
 //             slackSend channel: '#ci-cd',
-                     color: 'danger',
-                     message: "构建失败: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
+//                      color: 'danger',
+//                      message: "构建失败: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
         }
     }
 }
