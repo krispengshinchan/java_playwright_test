@@ -90,14 +90,14 @@ pipeline {
     post {
         always {
             echo "清理工作空间..."
-            deleteDir() // 清理工作目录
+//             deleteDir() // 清理工作目录
         }
         success {
-            slackSend channel: '#ci-cd',
+//             slackSend channel: '#ci-cd',
                      message: "构建成功: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
         }
         failure {
-            slackSend channel: '#ci-cd',
+//             slackSend channel: '#ci-cd',
                      color: 'danger',
                      message: "构建失败: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
         }
