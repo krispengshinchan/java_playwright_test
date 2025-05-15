@@ -45,8 +45,8 @@ pipeline {
         stage('单元测试') {
             steps {
                 println('测试前')
-                sh "mvn -v"
-                sh "mvn test -Dtest=org/example/TestExampleAPI"
+                bat "mvn -v"
+                bat "mvn test -Dtest=org/example/TestExampleAPI"
                 println('测试中')
                 // 生成测试报告
                 junit '**/target/surefire-reports/*.xml'
@@ -65,38 +65,7 @@ pipeline {
             }
         }
 
-//         stage('构建Docker镜像') {
-//             when {
-//                 branch 'master'  // 仅 main 分支执行
-//             }
-//             steps {
-//                 script {
-//                     docker.build("your-image:${VERSION}").push()
-//                 }
-//             }
-//         }
-//
-//         stage('部署到测试环境') {
-//             when {
-//                 environment name: 'DEPLOY_ENV', value: 'test'
-//             }
-//             steps {
-//                 sh 'kubectl apply -f k8s/deployment-test.yaml'
-//             }
-//         }
-//
-//         stage('部署到生产环境') {
-//             when {
-//                 environment name: 'DEPLOY_ENV', value: 'production'
-//                 branch 'main'
-//             }
-//             steps {
-//                 timeout(time: 5, unit: 'MINUTES') {
-//                     input message: '确认部署到生产环境？'
-//                 }
-//                 sh 'kubectl apply -f k8s/deployment-prod.yaml'
-//             }
-//         }
+
     }
     post {
         always {
