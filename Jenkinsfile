@@ -35,6 +35,7 @@ pipeline {
         stage('代码构建') {
             steps {
                 println('构架前')
+                bat 'chcp 65001'
                 bat 'mvn clean package'  // Maven 项目示例
                 println('构架后')
                 // 或使用 gradle: sh './gradlew build'
