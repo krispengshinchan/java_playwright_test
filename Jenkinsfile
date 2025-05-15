@@ -31,7 +31,9 @@ pipeline {
 
         stage('代码构建') {
             steps {
+                println('构架前')
                 sh 'mvn clean package'  // Maven 项目示例
+                println('构架后')
                 // 或使用 gradle: sh './gradlew build'
                 // 或使用 npm: sh 'npm install && npm run build'
             }
@@ -39,18 +41,23 @@ pipeline {
 
         stage('单元测试') {
             steps {
-                sh "mvn test -Dtest=${PATH}"
+                println('测试前')
+                sh "mvn test -Dtest=org/example/TestExampleAPI"
+                println('测试中')
                 // 生成测试报告
                 junit '**/target/surefire-reports/*.xml'
+                println('测试后')
             }
         }
 
         stage('代码扫描') {
             steps {
+                println('扫描前')
                 // 使用 SonarQube 进行代码分析
                 withSonarQubeEnv('sonar-server') {
                     sh 'mvn sonar:sonar'
                 }
+                println('扫描后')
             }
         }
 
@@ -93,16 +100,20 @@ pipeline {
 //             deleteDir() // 清理工作目录
         }
         success {
+            println("成功前")
             script{
                 currentBuild.description = "\n success"
             }
+            println("成功后")
 //             slackSend channel: '#ci-cd',
 //                      message: "构建成功: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
         }
         failure {
+            println("失败前")
             script{
                     currentBuild.description = "\n failure"
             }
+            println("失败后")
 //             slackSend channel: '#ci-cd',
 //                      color: 'danger',
 //                      message: "构建失败: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
