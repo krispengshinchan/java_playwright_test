@@ -36,11 +36,11 @@ pipeline {
             steps {
                 println('构架前')
 //                 bat 'chcp 65001'
-                bat 'C:\\Windows\\System32\\cmd.exe mvn clean package'  // Maven 项目示例
-//                 bat """
-//                       chcp 65001
-//                       mvn clean package
-//                     """
+//                 bat 'C:\\Windows\\System32\\cmd.exe mvn clean package'  // Maven 项目示例
+                bat """
+                      chcp 65001
+                      mvn clean package
+                    """
                 println('构架后')
                 // 或使用 gradle: sh './gradlew build'
                 // 或使用 npm: sh 'npm install && npm run build'
