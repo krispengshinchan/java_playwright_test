@@ -38,6 +38,7 @@ pipeline {
 //                 bat 'chcp 65001'
 //                 bat 'C:\\Windows\\System32\\cmd.exe mvn clean package'  // Maven 项目示例
                 bat """
+                      echo '你好你好你好'
                       chcp 65001
                       mvn clean package
                     """
