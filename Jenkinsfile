@@ -1,6 +1,9 @@
 println "Hello, Groovy!"
 pipeline {
     agent any
+    tools {
+        maven 'Maven3.9.9' // 与全局配置中的名称一致
+      }
     environment {
         // 设置环境变量
         VERSION = '1.0.0'
