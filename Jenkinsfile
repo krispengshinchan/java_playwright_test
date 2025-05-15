@@ -15,6 +15,11 @@ pipeline {
     stages {
         stage('初始化') {
             steps {
+              // 检查 Maven 是否存在
+              sh 'which mvn || echo "Maven not found"'
+              // 检查 Java 是否存在
+              sh 'which java || echo "Java not found"'
+
                 echo "开始执行流水线构建"
                 echo "当前版本: ${VERSION}"
                 echo "部署环境: ${DEPLOY_ENV}"
