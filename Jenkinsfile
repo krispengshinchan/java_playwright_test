@@ -42,6 +42,7 @@ pipeline {
         stage('单元测试') {
             steps {
                 println('测试前')
+                sh "mvn -v"
                 sh "mvn test -Dtest=org/example/TestExampleAPI"
                 println('测试中')
                 // 生成测试报告
