@@ -35,7 +35,7 @@ pipeline {
         stage('代码构建') {
             steps {
                 println('构架前')
-//                 sh 'mvn clean package'  // Maven 项目示例
+                bat 'mvn clean package'  // Maven 项目示例
                 println('构架后')
                 // 或使用 gradle: sh './gradlew build'
                 // 或使用 npm: sh 'npm install && npm run build'
@@ -45,8 +45,8 @@ pipeline {
         stage('单元测试') {
             steps {
                 println('测试前')
-                bat "mvn -v"
-                bat "mvn test -Dtest=org/example/TestExampleAPI"
+//                 bat "mvn -v"
+//                 bat "mvn test -Dtest=org/example/TestExampleAPI"
                 println('测试中')
                 // 生成测试报告
                 junit '**/target/surefire-reports/*.xml'
