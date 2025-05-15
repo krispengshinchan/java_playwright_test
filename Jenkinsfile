@@ -2,66 +2,66 @@ println "Hello, Groovy!"
 pipeline {
     agent any
     tools {
-        maven 'Maven3.9.9' // ÓëÈ«¾ÖÅäÖÃÖĞµÄÃû³ÆÒ»ÖÂ
+        maven 'Maven3.9.9' // ä¸å…¨å±€é…ç½®ä¸­çš„åç§°ä¸€è‡´
       }
     environment {
-        // ÉèÖÃ»·¾³±äÁ¿
+        // è®¾ç½®ç¯å¢ƒå˜é‡
         VERSION = '1.0.0'
         DEPLOY_ENV = 'production'
         CREDENTIALS_ID = 'my-docker-creds'
         PATH = 'org/example/TestExampleAPI'
     }
     options {
-        timeout(time: 1, unit: 'HOURS')  // ÉèÖÃ³¬Ê±Ê±¼ä
-        disableConcurrentBuilds()         // ½ûÖ¹²¢·¢¹¹½¨
+        timeout(time: 1, unit: 'HOURS')  // è®¾ç½®è¶…æ—¶æ—¶é—´
+        disableConcurrentBuilds()         // ç¦æ­¢å¹¶å‘æ„å»º
     }
     stages {
-        stage('³õÊ¼»¯') {
+        stage('åˆå§‹åŒ–') {
             steps {
-                echo "¿ªÊ¼Ö´ĞĞÁ÷Ë®Ïß¹¹½¨"
-                echo "µ±Ç°°æ±¾: ${VERSION}"
-                echo "²¿Êğ»·¾³: ${DEPLOY_ENV}"
-                echo "Ö´ĞĞ²âÊÔÂ·¾¶£º ${PATH}"
+                echo "å¼€å§‹æ‰§è¡Œæµæ°´çº¿æ„å»º"
+                echo "å½“å‰ç‰ˆæœ¬: ${VERSION}"
+                echo "éƒ¨ç½²ç¯å¢ƒ: ${DEPLOY_ENV}"
+                echo "æ‰§è¡Œæµ‹è¯•è·¯å¾„ï¼š ${PATH}"
             }
         }
 
-        stage('´úÂë¼ì³ö') {
+        stage('ä»£ç æ£€å‡º') {
             steps {
                 git branch: 'master',
                 url: 'https://github.com/krispengshinchan/java_playwright_test.git'
             }
         }
 
-        stage('´úÂë¹¹½¨') {
+        stage('ä»£ç æ„å»º') {
             steps {
-                println('¹¹¼ÜÇ°')
-                bat 'mvn clean package'  // Maven ÏîÄ¿Ê¾Àı
-                println('¹¹¼Üºó')
-                // »òÊ¹ÓÃ gradle: sh './gradlew build'
-                // »òÊ¹ÓÃ npm: sh 'npm install && npm run build'
+                println('æ„æ¶å‰')
+                bat 'mvn clean package'  // Maven é¡¹ç›®ç¤ºä¾‹
+                println('æ„æ¶å')
+                // æˆ–ä½¿ç”¨ gradle: sh './gradlew build'
+                // æˆ–ä½¿ç”¨ npm: sh 'npm install && npm run build'
             }
         }
 
-        stage('µ¥Ôª²âÊÔ') {
+        stage('å•å…ƒæµ‹è¯•') {
             steps {
-                println('²âÊÔÇ°')
+                println('æµ‹è¯•å‰')
 //                 bat "mvn -v"
 //                 bat "mvn test -Dtest=org/example/TestExampleAPI"
-                println('²âÊÔÖĞ')
-                // Éú³É²âÊÔ±¨¸æ
+                println('æµ‹è¯•ä¸­')
+                // ç”Ÿæˆæµ‹è¯•æŠ¥å‘Š
                 junit '**/target/surefire-reports/*.xml'
-                println('²âÊÔºó')
+                println('æµ‹è¯•å')
             }
         }
 
-        stage('´úÂëÉ¨Ãè') {
+        stage('ä»£ç æ‰«æ') {
             steps {
-                println('É¨ÃèÇ°')
-                // Ê¹ÓÃ SonarQube ½øĞĞ´úÂë·ÖÎö
+                println('æ‰«æå‰')
+                // ä½¿ç”¨ SonarQube è¿›è¡Œä»£ç åˆ†æ
                 withSonarQubeEnv('sonar-server') {
                     sh 'mvn sonar:sonar'
                 }
-                println('É¨Ãèºó')
+                println('æ‰«æå')
             }
         }
 
@@ -69,27 +69,27 @@ pipeline {
     }
     post {
         always {
-            echo "alwaysÇåÀí¹¤×÷¿Õ¼ä..."
-//             deleteDir() // ÇåÀí¹¤×÷Ä¿Â¼
+            echo "alwaysæ¸…ç†å·¥ä½œç©ºé—´..."
+//             deleteDir() // æ¸…ç†å·¥ä½œç›®å½•
         }
         success {
-            println("³É¹¦Ç°")
+            println("æˆåŠŸå‰")
             script{
                 currentBuild.description = "\n success"
             }
-            println("³É¹¦ºó")
+            println("æˆåŠŸå")
 //             slackSend channel: '#ci-cd',
-//                      message: "¹¹½¨³É¹¦: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
+//                      message: "æ„å»ºæˆåŠŸ: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
         }
         failure {
-            println("Ê§°ÜÇ°")
+            println("å¤±è´¥å‰")
             script{
                     currentBuild.description = "\n failure"
             }
-            println("Ê§°Üºó")
+            println("å¤±è´¥å")
 //             slackSend channel: '#ci-cd',
 //                      color: 'danger',
-//                      message: "¹¹½¨Ê§°Ü: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
+//                      message: "æ„å»ºå¤±è´¥: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
         }
     }
 }
