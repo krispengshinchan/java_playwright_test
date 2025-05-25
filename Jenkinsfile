@@ -40,9 +40,9 @@ pipeline {
                 bat """
                       echo '你好你好你好'
                       chcp 65001
-//                       mvn clean package
                     """
                 println('构架后')
+                //                       mvn clean package
                 // 或使用 gradle: sh './gradlew build'
                 // 或使用 npm: sh 'npm install && npm run build'
             }
