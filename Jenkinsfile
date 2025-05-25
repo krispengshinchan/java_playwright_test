@@ -54,7 +54,7 @@ pipeline {
 //                 bat "mvn -v"
 //                 bat "mvn test -Dtest=org/example/TestExampleAPI"
                 bat """
-                      mvn -v
+
                       mvn test -Dtest=org/example/TestExampleAPI
                     """
                 println('测试中')
