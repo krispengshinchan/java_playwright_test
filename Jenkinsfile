@@ -40,7 +40,7 @@ pipeline {
                 bat """
                       echo '你好你好你好'
                       chcp 65001
-                      mvn clean package
+//                       mvn clean package
                     """
                 println('构架后')
                 // 或使用 gradle: sh './gradlew build'
@@ -53,6 +53,10 @@ pipeline {
                 println('测试前')
 //                 bat "mvn -v"
 //                 bat "mvn test -Dtest=org/example/TestExampleAPI"
+                bat """
+                      mvn -v
+                      mvn test -Dtest=org/example/TestExampleAPI
+                    """
                 println('测试中')
                 // 生成测试报告
                 junit '**/target/surefire-reports/*.xml'
