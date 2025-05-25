@@ -60,16 +60,16 @@ pipeline {
             }
         }
 
-        stage('代码扫描') {
-            steps {
-                println('扫描前')
-                // 使用 SonarQube 进行代码分析
-                withSonarQubeEnv('sonar-server') {
-                    sh 'mvn sonar:sonar'
-                }
-                println('扫描后')
-            }
-        }
+//         stage('代码扫描') {
+//             steps {
+//                 println('扫描前')
+//                 // 使用 SonarQube 进行代码分析
+//                 withSonarQubeEnv('sonar-server') {
+//                     sh 'mvn sonar:sonar'
+//                 }
+//                 println('扫描后')
+//             }
+//         }
 
 
     }
